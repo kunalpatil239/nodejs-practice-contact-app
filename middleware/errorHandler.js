@@ -1,4 +1,4 @@
-const {constants} = require("../constants")
+const { constants } = require("../constants");
 
 const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
@@ -23,12 +23,14 @@ const errorHandler = (err, req, res, next) => {
         message: err.message,
         stackTrace: err.stack,
       });
+      break;
     case constants.FORBIDDEN:
       res.json({
         title: "forbidden",
         message: err.message,
         stackTrace: err.stack,
       });
+      break;
     case constants.SERVER_ERROR:
       res.json({
         title: "Server Error",
@@ -36,10 +38,13 @@ const errorHandler = (err, req, res, next) => {
         stackTrace: err.stack,
       });
     default:
-      res.json({ title: "not found", message: err.message, stackTrace: err.stack });
+      res.json({
+        title: "not found",
+        message: err.message,
+        stackTrace: err.stack,
+      });
       break;
   }
-  
 };
 
 module.exports = errorHandler;
